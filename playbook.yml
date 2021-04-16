@@ -1,0 +1,19 @@
+---
+- name: Installing Cloudwatch Agent
+  hosts: win
+
+  tasks:
+    - name: Download the Agent
+      win_get_url:
+        url: https://s3.amazonaws.com/amazoncloudwatch-agent/windows/amd64/latest/amazon-cloudwatch-agent.msi
+        dest: C:\amazon-cloudwatch-agent.msi
+    - name: Install MSI
+      win_package:
+        path:  C:\amazon-cloudwatch-agent.msi
+        state: present
+    - name: Download Configuration
+      win_get_url:
+        url: https://cloudwatch-config-download.s3.ap-south-1.amazonaws.com/config.json
+        dest: C:\Program Files\Amazon\AmazonCloudWatchAgent\config.json
+    - name: Learn Config
+      win_command: powershell.exe 'C:\Program` Files\Amazon\AmazonCloudWatchAgent\amazon-cloudwatch-agent-ctl.ps1 -m ec2 -s fetch-config  -c file:config.json'

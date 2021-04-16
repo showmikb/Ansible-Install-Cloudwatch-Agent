@@ -1,0 +1,24 @@
+Docker -
+
+Docker Network : Each container connects to a private virtual network - Bridge
+Each virtual network routes through a nat firewall on the host IP.
+All containers on a virtual network can talk to each other without opening ports.
+You can create your own virtual network. Attach container to multiple networks, skip virtual network to use host ip --net=host. Use different network drivers to get different abilities.
+
+Docker DNS hostnames make it easy for docker to identify different containers. Bridge network doesn't have DNS resolution. thus you can create links(--link) between two container when you spin them up.
+
+
+
+docker container top - process listing in a container
+docker container stats  - performance statistics of all containers
+docker container inspect - details of one container config.
+
+docker container run -it - i=interactive; t=tty
+docker container exec -it
+docker container port <cont>
+
+docker network ls - shows all networks created - bridge is default; host is a network which skips the docker network to attach directly to he host machine; none - removes eth0 and leaves localhost only.
+docker network inspect bridge - all network details
+docker network create - creates a network
+docker network connect - attaches container to a new network dynamically
+docker network disconnect - removes container from a network dynamically
